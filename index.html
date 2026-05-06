@@ -195,6 +195,7 @@
     transition: all 0.2s;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
   }
 
   .app-card::before {
@@ -439,6 +440,99 @@
 
   footer a { color: var(--red); text-decoration: none; }
 
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(58, 40, 32, 0.55);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    border-radius: 16px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(58, 40, 32, 0.2);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-title-area { display: flex; align-items: center; gap: 0.6rem; }
+
+  .modal-icon { font-size: 22px; }
+
+  .modal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-dark);
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-light);
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text-dark); }
+
+  .modal-video { line-height: 0; }
+
+  .modal-video iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .modal-body { padding: 1.3rem 1.5rem 1.5rem; }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-open-btn {
+    display: block;
+    text-align: center;
+    background: var(--red);
+    color: var(--white);
+    padding: 0.85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+
+  .modal-open-btn:hover { opacity: 0.85; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .hero { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.5rem; }
@@ -478,51 +572,42 @@
   <div class="tab-panel active" id="tab-apps">
     <div class="section-title">リリース済みアプリ</div>
     <div class="apps-grid">
-      <a class="app-card" href="https://grooming-check-app.vercel.app/" target="_blank">
+      <div class="app-card" onclick="openModal('🪞','みだしなみチェック','婚活男性向け AI 画像診断。お見合いまでの残り日数から「いつまでに何をすべきか」を具体的にアドバイス。','https://grooming-check-app.vercel.app/',null)">
         <span class="app-icon">🪞</span>
         <div class="app-name">みだしなみチェック</div>
         <div class="app-desc">婚活男性向け AI 画像診断。お見合いまでの残り日数から「いつまでに何をすべきか」を具体的にアドバイス。</div>
         <span class="app-tag">AI</span>
-      </a>
-      <div style="grid-column: 1 / -1;">
-        <a class="app-card" href="https://expiry-manager.yuka-studio.net" target="_blank" style="display: flex; gap: 1.5rem; align-items: flex-start;">
-          <div style="flex-shrink: 0;">
-            <span class="app-icon">🥫</span>
-            <div class="app-name">蔵出し管理帳</div>
-            <div class="app-desc" style="max-width: 200px;">食品・備蓄品の消費期限管理アプリ。倉敷美観地区の蔵をテーマにした独自UIで、日常の節約と非常時の備えを一元管理。</div>
-            <span class="app-tag">PWA</span>
-          </div>
-          <div style="flex: 1; border-radius: 8px; overflow: hidden;" onclick="event.preventDefault();">
-            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
-              <iframe src="https://www.loom.com/embed/8ea92d5403c84e6ea7920c710eebafb6" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"></iframe>
-            </div>
-          </div>
-        </a>
       </div>
-      <a class="app-card" href="https://evently.yuka-studio.net" target="_blank">
+      <div class="app-card" onclick="openModal('🥫','蔵出し管理帳','食品・備蓄品の消費期限管理アプリ。倉敷美観地区の蔵をテーマにした独自UIで、日常の節約と非常時の備えを一元管理。','https://expiry-manager.yuka-studio.net','8ea92d5403c84e6ea7920c710eebafb6')">
+        <span class="app-icon">🥫</span>
+        <div class="app-name">蔵出し管理帳</div>
+        <div class="app-desc">食品・備蓄品の消費期限管理アプリ。倉敷美観地区の蔵をテーマにした独自UIで、日常の節約と非常時の備えを一元管理。</div>
+        <span class="app-tag">PWA</span>
+      </div>
+      <div class="app-card" onclick="openModal('🎉','Evently','小規模コミュニティのイベント管理・告知に特化。作成から招待リンク発行・参加登録まで一気通貫。','https://evently.yuka-studio.net',null)">
         <span class="app-icon">🎉</span>
         <div class="app-name">Evently</div>
         <div class="app-desc">小規模コミュニティのイベント管理・告知に特化。作成から招待リンク発行・参加登録まで一気通貫。</div>
         <span class="app-tag">管理</span>
-      </a>
-      <a class="app-card" href="https://kinri-drill.yuka-studio.net" target="_blank">
+      </div>
+      <div class="app-card" onclick="openModal('💰','金利ドリル','複利・単利など社会人が知るべき金融知識をゲーム感覚で習得。問題はアルゴリズムで自動生成し、無限に出題。','https://kinri-drill.yuka-studio.net',null)">
         <span class="app-icon">💰</span>
         <div class="app-name">金利ドリル</div>
         <div class="app-desc">複利・単利など社会人が知るべき金融知識をゲーム感覚で習得。問題はアルゴリズムで自動生成し、無限に出題。</div>
         <span class="app-tag">学習</span>
-      </a>
-      <a class="app-card" href="https://tea-ceremony.yuka-studio.net" target="_blank">
+      </div>
+      <div class="app-card" onclick="openModal('🍵','茶道稽古記録','稽古の内容・所作・気づきをデジタルで記録。茶道特有のカテゴリに最適化された入力体験と成長可視化。','https://tea-ceremony.yuka-studio.net',null)">
         <span class="app-icon">🍵</span>
         <div class="app-name">茶道稽古記録</div>
         <div class="app-desc">稽古の内容・所作・気づきをデジタルで記録。茶道特有のカテゴリに最適化された入力体験と成長可視化。</div>
         <span class="app-tag">記録</span>
-      </a>
-      <a class="app-card" href="https://affirmation-app-nine.vercel.app" target="_blank">
+      </div>
+      <div class="app-card" onclick="openModal('✨','Affirmation App','毎日のアファメーション習慣を支援するパーソナルPWA。インタビュー形式で声に出して答えることで習慣化。','https://affirmation-app-nine.vercel.app',null)">
         <span class="app-icon">✨</span>
         <div class="app-name">Affirmation App</div>
         <div class="app-desc">毎日のアファメーション習慣を支援するパーソナルPWA。インタビュー形式で声に出して答えることで習慣化。</div>
         <span class="app-tag">習慣</span>
-      </a>
+      </div>
     </div>
 
     <div class="section-title">近日公開予定</div>
@@ -608,6 +693,24 @@
   <a href="https://yuka-studio.net">yuka-studio.net</a> &nbsp;·&nbsp; © 2026 Yuka Christina
 </footer>
 
+<!-- ── モーダル ── -->
+<div class="modal-overlay" id="app-modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-area">
+        <span class="modal-icon" id="modal-icon"></span>
+        <span class="modal-name" id="modal-name"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-video" id="modal-video"></div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <a class="modal-open-btn" id="modal-link" href="#" target="_blank">アプリを開く →</a>
+    </div>
+  </div>
+</div>
+
 <script>
   function switchTab(tab, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -615,6 +718,37 @@
     document.getElementById('tab-' + tab).classList.add('active');
     btn.classList.add('active');
   }
+
+  function openModal(icon, name, desc, url, loomId) {
+    document.getElementById('modal-icon').textContent = icon;
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-desc').textContent = desc;
+    document.getElementById('modal-link').href = url;
+
+    const videoEl = document.getElementById('modal-video');
+    if (loomId) {
+      videoEl.innerHTML = '<iframe src="https://www.loom.com/embed/' + loomId + '" allowfullscreen></iframe>';
+    } else {
+      videoEl.innerHTML = '';
+    }
+
+    document.getElementById('app-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('app-modal').classList.remove('open');
+    document.getElementById('modal-video').innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('app-modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
 </script>
 
 </body>
