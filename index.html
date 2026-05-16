@@ -602,7 +602,7 @@
         <div class="app-desc">稽古の内容・所作・気づきをデジタルで記録。茶道特有のカテゴリに最適化された入力体験と成長可視化。</div>
         <span class="app-tag">記録</span>
       </div>
-      <div class="app-card" onclick="openModal('✨','Affirmation App','毎日のアファメーション習慣を支援するパーソナルPWA。インタビュー形式で声に出して答えることで習慣化。','https://affirmation-app-nine.vercel.app',null)">
+      <div class="app-card" onclick="openModal('✨','Affirmation App','毎日のアファメーション習慣を支援するパーソナルPWA。インタビュー形式で声に出して答えることで習慣化。',null,null)">
         <span class="app-icon">✨</span>
         <div class="app-name">Affirmation App</div>
         <div class="app-desc">毎日のアファメーション習慣を支援するパーソナルPWA。インタビュー形式で声に出して答えることで習慣化。</div>
@@ -723,7 +723,14 @@
     document.getElementById('modal-icon').textContent = icon;
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-desc').textContent = desc;
-    document.getElementById('modal-link').href = url;
+    const linkEl = document.getElementById('modal-link');
+    if (url) {
+      linkEl.href = url;
+      linkEl.style.display = '';
+    } else {
+      linkEl.href = '#';
+      linkEl.style.display = 'none';
+    }
 
     const videoEl = document.getElementById('modal-video');
     if (loomId) {
