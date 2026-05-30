@@ -309,6 +309,19 @@
     font-weight: 300;
   }
 
+  .tea-photo {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    aspect-ratio: 1;
+  }
+
+  .tea-photo.tea-wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+
   .video-placeholder {
     background: var(--smoky-pink-light);
     border-radius: 8px;
@@ -638,10 +651,9 @@
         </div>
         <p class="hobby-note">稽古の日々。</p>
         <div class="photo-grid">
-          <div class="photo-placeholder">写真</div>
-          <div class="photo-placeholder">写真</div>
-          <div class="photo-placeholder">写真</div>
-          <div class="photo-placeholder">写真</div>
+          <img src="tea01.jpg" alt="茶道 稽古" class="tea-photo">
+          <img src="tea02.jpg" alt="茶道 お点前" class="tea-photo">
+          <img src="tea03.jpg" alt="茶道 集合写真" class="tea-photo tea-wide">
         </div>
       </div>
     </div>
